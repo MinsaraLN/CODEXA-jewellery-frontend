@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Layout } from '@/components/Layout';
 import { Shield, Truck, RotateCcw, Sparkles } from 'lucide-react';
 import kjLogo from '@/assets/kj-logo.png';
-import heroReference from '@/assets/hero-reference.png';
+import heroBackground from '@/assets/hero-background.png';
 import ringImage from '@/assets/ring.jpg';
 import braceletImage from '@/assets/bracelet.jpg';
 import pendantImage from '@/assets/pendant.jpg';
@@ -57,58 +57,56 @@ const Index = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative min-h-screen bg-background overflow-hidden">
-        <div className="container mx-auto px-4 h-screen flex items-center">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full">
-            {/* Left side - Hero Image */}
-            <div className="relative order-2 lg:order-1">
-              <div className="relative rounded-2xl overflow-hidden">
-                <img 
-                  src={heroReference} 
-                  alt="Luxury Jewelry Collection" 
-                  className="w-full h-[600px] object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-              </div>
+      <section 
+        className="relative min-h-screen overflow-hidden flex items-center justify-center"
+        style={{
+          backgroundImage: `url(${heroBackground})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+        aria-label="Luxury jewelry collection hero banner"
+      >
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-black/45"></div>
+        
+        {/* Content */}
+        <div className="relative z-10 container mx-auto px-4 text-center lg:text-right">
+          <div className="max-w-2xl mx-auto lg:mx-0 lg:ml-auto space-y-8">
+            <div className="space-y-4">
+              <h1 className="heading-display text-5xl lg:text-7xl">
+                NEW KALYANI<br />JEWELLERS
+              </h1>
+              <p className="text-2xl lg:text-3xl font-cormorant font-medium text-gold-subtle">
+                CROWN YOURSELF
+              </p>
             </div>
-
-            {/* Right side - Brand Content */}
-            <div className="order-1 lg:order-2 text-center lg:text-left space-y-8">
-              <div className="space-y-4">
-                <h1 className="heading-display text-5xl lg:text-7xl">
-                  NEW KALYANI<br />JEWELLERS
-                </h1>
-                <p className="text-2xl lg:text-3xl font-cormorant font-medium text-gold-subtle">
-                  CROWN YOURSELF
-                </p>
-              </div>
-              
-              <div className="space-y-4">
+            
+            <div className="space-y-4">
+              <Button 
+                asChild
+                size="lg" 
+                className="bg-gold-gradient hover:shadow-gold text-black font-semibold px-8 py-6 text-lg"
+              >
+                <Link to="/gold">Explore Collection</Link>
+              </Button>
+              <div className="flex flex-wrap gap-4 justify-center lg:justify-end">
                 <Button 
                   asChild
-                  size="lg" 
-                  className="bg-gold-gradient hover:shadow-gold text-black font-semibold px-8 py-6 text-lg"
+                  variant="outline" 
+                  size="lg"
+                  className="border-gold/30 text-gold hover:bg-gold/10 bg-black/20 backdrop-blur-sm"
                 >
-                  <Link to="/gold">Explore Collection</Link>
+                  <Link to="/custom-designs">Custom Designs</Link>
                 </Button>
-                <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
-                  <Button 
-                    asChild
-                    variant="outline" 
-                    size="lg"
-                    className="border-gold/30 text-gold hover:bg-gold/10"
-                  >
-                    <Link to="/custom-designs">Custom Designs</Link>
-                  </Button>
-                  <Button 
-                    asChild
-                    variant="outline" 
-                    size="lg"
-                    className="border-gold/30 text-gold hover:bg-gold/10"
-                  >
-                    <Link to="/repairs">Repairs</Link>
-                  </Button>
-                </div>
+                <Button 
+                  asChild
+                  variant="outline" 
+                  size="lg"
+                  className="border-gold/30 text-gold hover:bg-gold/10 bg-black/20 backdrop-blur-sm"
+                >
+                  <Link to="/repairs">Repairs</Link>
+                </Button>
               </div>
             </div>
           </div>
