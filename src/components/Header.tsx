@@ -14,11 +14,12 @@ export const Header: React.FC = () => {
   const { itemCount } = useCart();
   const { itemCount: wishlistCount } = useWishlist();
   const navigate = useNavigate();
+  const isAdmin = user?.role === 'ADMIN';
 
   const navigationItems = [
     { name: 'Home', href: '/' },
     { name: 'Gold Jewelry', href: '/gold' },
-    { name: 'James', href: '/james' },
+    { name: 'Gems', href: '/gems' },
     { name: 'Angel Collection', href: '/angel-collection' },
     { name: 'Offers', href: '/offers' },
     { name: 'About Us', href: '/about' },
@@ -59,6 +60,11 @@ export const Header: React.FC = () => {
                 {item.name}
               </Link>
             ))}
+            {isAdmin && (
+              <Link to="/admin" className="text-sm font-inter font-semibold text-gold">
+                Admin
+              </Link>
+            )}
           </nav>
 
           {/* Action Icons */}
@@ -66,7 +72,7 @@ export const Header: React.FC = () => {
             <Button variant="ghost" size="sm" className="hidden md:flex">
               <Search className="h-4 w-4" />
             </Button>
-            
+
             <Button
               variant="ghost"
               size="sm"

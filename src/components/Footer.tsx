@@ -46,8 +46,8 @@ export const Footer: React.FC = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/james" className="text-sm text-muted-foreground hover:text-gold transition-colors">
-                  James Collection
+                <Link to="/gems" className="text-sm text-muted-foreground hover:text-gold transition-colors">
+                  Gems Collection
                 </Link>
               </li>
               <li>
@@ -97,16 +97,16 @@ export const Footer: React.FC = () => {
               <div className="flex items-center space-x-2">
                 <MapPin className="h-4 w-4 text-gold" />
                 <span className="text-sm text-muted-foreground">
-                  95/A, Colombo Road, Kaduwela
+                  475/A, Colombo Road, Kaduwela
                 </span>
               </div>
               <div className="flex items-center space-x-2">
                 <Phone className="h-4 w-4 text-gold" />
-                <span className="text-sm text-muted-foreground">+94 11 123 4567</span>
+                <span className="text-sm text-muted-foreground">+94 11 2571482 </span>
               </div>
               <div className="flex items-center space-x-2">
                 <Mail className="h-4 w-4 text-gold" />
-                <span className="text-sm text-muted-foreground">info@newkalyanijewellers.com</span>
+                <span className="text-sm text-muted-foreground">bishelkodagoda@gmail.com</span>
               </div>
             </div>
           </div>

@@ -1,21 +1,21 @@
-// src/pages/GoldJewelry.tsx
+// src/pages/Gems.tsx
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Layout } from "@/components/Layout";
 import CategoryPills from "@/components/catalog/CategoryPills";
-import ProductCard from "@/components/catalog/ProductCard";
-import { getCategories, getProductsByCategory } from "@/lib/catalog";
+import GemCard from "@/components/catalog/GemCard";
+import { getCategories, getGemsByCategory } from "@/lib/catalog";
 import type { Category } from "@/lib/types";
 import { Skeleton } from "@/components/ui/skeleton";
 
 
-export default function GoldJewelry() {
+export default function Gems() {
 const [selected, setSelected] = React.useState<string | number | undefined>(undefined);
 
 
 const { data: categories = [], isLoading: catLoading, isError: catError, refetch: refetchCats } = useQuery({
-queryKey: ["categories", "PRODUCT"],
-queryFn: () => getCategories("PRODUCT"),
+queryKey: ["categories", "GEM"],
+queryFn: () => getCategories("GEM"),
 });
 
 
@@ -25,18 +25,18 @@ const selCategory: Category | undefined = React.useMemo(
 );
 
 
-const { data: products = [], isLoading: prodLoading, isError: prodError, refetch: refetchProd } = useQuery({
-queryKey: ["products", selCategory?.id],
+const { data: gems = [], isLoading: gemsLoading, isError: gemsError, refetch: refetchGems } = useQuery({
+queryKey: ["gems", selCategory?.id],
 enabled: !!selCategory,
-queryFn: () => getProductsByCategory({ categoryId: selCategory!.id as any, categorySlug: selCategory?.slug }),
+queryFn: () => getGemsByCategory({ categoryId: selCategory!.id as any, categorySlug: selCategory?.slug }),
 });
 
 
 return (
 <Layout>
 <div className="container mx-auto px-4 py-8">
-<h1 className="heading-display mb-2">Jewellery</h1>
-<p className="text-elegant text-muted-foreground mb-6">Browse by category</p>
+<h1 className="heading-display mb-2">Gems</h1>
+<p className="text-elegant text-muted-foreground mb-6">Browse by gem type</p>
 
 
 {catLoading ? (
@@ -58,23 +58,23 @@ onChange={(id) => setSelected(id)}
 )}
 
 
-{prodLoading ? (
+{gemsLoading ? (
 <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
 {Array.from({ length: 8 }).map((_, i) => (
 <Skeleton key={i} className="aspect-square w-full rounded-2xl" />
 ))}
 </div>
-) : prodError ? (
+) : gemsError ? (
 <div className="rounded-lg border p-4 text-sm">
-Failed to load products. <button className="underline" onClick={() => refetchProd()}>Retry</button>
+Failed to load gems. <button className="underline" onClick={() => refetchGems()}>Retry</button>
 </div>
 ) : (
 <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-{products.map((p) => (
-<ProductCard key={String(p.id)} product={p} />
+{gems.map((g) => (
+<GemCard key={String(g.id)} gem={g} />
 ))}
-{products.length === 0 && (
-<div className="col-span-full text-center text-muted-foreground">No products in this category.</div>
+{gems.length === 0 && (
+<div className="col-span-full text-center text-muted-foreground">No gems in this category.</div>
 )}
 </div>
 )}

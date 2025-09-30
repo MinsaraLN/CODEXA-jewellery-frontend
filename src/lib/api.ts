@@ -33,7 +33,7 @@ const mockProducts: Product[] = [
     sizeOptions: ['14', '15', '16', '17', '18'],
     rating: 4.8,
     badges: ['BIS Hallmarked', 'Free Shipping'],
-    collection: 'james',
+    collection: 'Gems',
     category: 'ring',
     description: 'A stunning diamond ring crafted with precision and elegance.',
     specifications: {
@@ -79,7 +79,7 @@ const mockProducts: Product[] = [
     sizeOptions: ['One Size'],
     rating: 4.7,
     badges: ['BIS Hallmarked', 'Free Cleaning'],
-    collection: 'james',
+    collection: 'Gems',
     category: 'pendant',
     description: 'A vibrant pendant featuring multiple gemstones in a beautiful design.',
     specifications: {
