@@ -5,7 +5,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import UserLogin from "./pages/UserLogin";
 import UserRegister from "./pages/UserRegister";
-import ForgotPassword from "./pages/ForgotPassword";
 
 const queryClient = new QueryClient();
 
@@ -18,7 +17,6 @@ const App = () => (
         <Routes>
           <Route path="/user/login" element={<UserLogin />} />
           <Route path="/user/register" element={<UserRegister/>}/>
-          <Route path="/user/forget-password" element={<ForgotPassword/>}/>
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
