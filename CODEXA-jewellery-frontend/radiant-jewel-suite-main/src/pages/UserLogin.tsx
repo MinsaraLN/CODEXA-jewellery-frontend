@@ -6,22 +6,32 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { Lock } from "lucide-react";
 import { Link } from "react-router-dom";
+import axios from 'axios'
 
 const UserLogin = () => {
   const navigate = useNavigate();
   const [email, setEmail]=useState("");
   const [passwordHash, setPasswordHash]=useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // Simple authentication - in production, this should connect to backend
-    if (email && passwordHash) {
-      toast.success("Login successful");
-      navigate("/admin");
-    } else {
-      toast.error("Invalid credentials");
+    try{
+      const response =await axios.post("http://localhost:8086/auth/login", {
+        email,
+        passwordHash
+      });
+      alert("login successfull");
+      console.log(response.data);
+      localStorage.setItem('userId', response.data.userId);
+      localStorage.setItem('token', response.data.token);
+      console.log(localStorage.getItem('userId'));
+      console.log(localStorage.getItem('token'));
+      navigate("/adminPage");
+    }catch(err){
+      console.error(err)
+      alert("signup failed");
     }
-  };
+  }
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center px-4">
@@ -35,7 +45,7 @@ const UserLogin = () => {
         </div>
 
         <div className="bg-card p-8 rounded-lg card-shadow">
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleLogin} className="space-y-6">
             <div>
               <Label htmlFor="email">Email Address</Label>
               <Input

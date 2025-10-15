@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { UserPlus } from "lucide-react";
+import axios from 'axios'
 
 const UserRegister = () => {
   const navigate = useNavigate();
@@ -13,46 +14,61 @@ const UserRegister = () => {
   const [userLname, setUserLname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [role, setRole] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
-
-    // Basic validation
-    if (password !== confirmPassword) {
-      toast.error("Passwords do not match");
-      return;
-    }
-
-    if (!userFname || !userLname || !email || !password) {
-      toast.error("Please fill in all fields");
-      return;
-    }
-
-    try {
-      // Call your backend API for registration
-      const response = await fetch("http://localhost:8080/api/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          userFname,
-          userLname,
-          email,
-          passwordHash: password, // Backend should hash this
-        }),
+    e.preventDefault();
+    try{
+      const response =await axios.post("http://localhost:8086/auth/register", {
+        firstName: userFname,
+        lastName: userLname,
+        email: email,
+        password: password,
+        roleId: role==="manager"?2:1
       });
-
-      if (response.ok) {
-        toast.success("Registration successful");
-        navigate("/login");
-      } else {
-        const data = await response.json();
-        toast.error(data.message || "Registration failed");
-      }
-    } catch (error) {
-      console.error(error);
-      toast.error("Something went wrong");
+      alert("login successfull");
+      console.log(response.data);
+      navigate("/user/login");
+    }catch(err){
+      console.error(err)
+      alert("signup failed");
     }
+    // // Basic validation
+    // if (password !== confirmPassword) {
+    //   toast.error("Passwords do not match");
+    //   return;
+    // }
+
+    // if (!userFname || !userLname || !email || !password) {
+    //   toast.error("Please fill in all fields");
+    //   return;
+    // }
+
+    // try {
+    //   // Call your backend API for registration
+    //   const response = await fetch("http://localhost:8080/api/register", {
+    //     method: "POST",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify({
+    //       userFname,
+    //       userLname,
+    //       email,
+    //       passwordHash: password, // Backend should hash this
+    //     }),
+    //   });
+
+    //   if (response.ok) {
+    //     toast.success("Registration successful");
+    //     navigate("/login");
+    //   } else {
+    //     const data = await response.json();
+    //     toast.error(data.message || "Registration failed");
+    //   }
+    // } catch (error) {
+    //   console.error(error);
+    //   toast.error("Something went wrong");
+    // }
   };
 
   return (
@@ -67,7 +83,7 @@ const UserRegister = () => {
         </div>
 
         <div className="bg-card p-8 rounded-lg card-shadow">
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSignUp} className="space-y-6">
             <div>
               <Label htmlFor="fname">First Name</Label>
               <Input
@@ -105,6 +121,18 @@ const UserRegister = () => {
             </div>
 
             <div>
+              <Label htmlFor="role">role</Label>
+              <Input
+                id="role"
+                type="text"
+                required
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                placeholder="role"
+              />
+            </div>
+
+            <div>
               <Label htmlFor="password">Password</Label>
               <Input
                 id="password"
@@ -113,18 +141,6 @@ const UserRegister = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter password"
-              />
-            </div>
-
-            <div>
-              <Label htmlFor="confirmPassword">Confirm Password</Label>
-              <Input
-                id="confirmPassword"
-                type="password"
-                required
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder="Confirm password"
               />
             </div>
 
